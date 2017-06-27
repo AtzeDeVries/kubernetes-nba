@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  log4j2.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration>
+            <Appenders>
+                    <Console name="Console">
+                            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+                    </Console>
+            </Appenders>
+            <Loggers>
+                    <Logger name="nl.naturalis.nba" level="INFO" additivity="false">
+                            <AppenderRef ref="Console" />
+                    </Logger>
+                    <Root level="ERROR">
+                            <AppenderRef ref="Console" />
+                    </Root>
+            </Loggers>
+    </Configuration>
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2017-06-26T09:52:23Z
+  name: log4j2xml
+  namespace: default
+  resourceVersion: "302674"
+  selfLink: /api/v1/namespaces/default/configmaps/log4j2xml
+  uid: 275ed676-5a55-11e7-981c-fa163e24f771

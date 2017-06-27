@@ -1,0 +1,36 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-crs-specimens
+  labels:
+    app: etl-crs-specimens
+spec:
+  template:
+    metadata:
+      name: etl-crs-specimens
+      labels:
+        app: etl-crs-specimens
+    spec:
+      containers:
+      - name: etl-crs-specimens
+        image: atzedevries/docker-nba-etl:V2.4
+        env:
+        - name: "ES_DNS"
+          value: "elasticsearch"
+        - name: "TEST_GENERA"
+          value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
+        - name: "AUTO_IMPORT"
+          value: "TRUE"
+        - name: "ENABLE_FILEBEAT"
+          value: "TRUE"
+        - name: "DEFAULT_SHARDS"
+          value: "24"
+        - name: "NUM_REPLICAS"
+          value: "0"
+        - name: "REPOS"
+          value: "nba-brondata-crs:master,nba-brondata-medialib:master"
+        - name: "IMPORT_COMMAND"
+          value: "./crs-import specimens"
+        imagePullPolicy: Always
+      restartPolicy: Never
