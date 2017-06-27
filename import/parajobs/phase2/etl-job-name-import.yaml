@@ -6,6 +6,7 @@ metadata:
   labels:
     app: etl-name-import
 spec:
+  #  activeDeadlineSeconds: 600
   template:
     metadata:
       name: etl-name-import

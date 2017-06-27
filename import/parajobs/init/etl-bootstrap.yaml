@@ -25,7 +25,7 @@ spec:
         - name: "ENABLE_FILEBEAT"
           value: "TRUE"
         - name: "DEFAULT_SHARDS"
-          value: "8"
+          value: "12"
         - name: "NUM_REPLICAS"
           value: "0"
         - name: "REPOS"
