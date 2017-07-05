@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: etl-geo
-        image: atzedevries/docker-nba-etl:V2.4
+        image: atzedevries/docker-nba-etl:V2.5-18-gc5ccef44
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
@@ -29,7 +29,7 @@ spec:
         - name: "NUM_REPLICAS"
           value: "0"
         - name: "REPOS"
-          value: "nba-brondata-geo:master,nba-brondata-medialib:master"
+          value: "nba-brondata-geo:prisma-test,nba-brondata-medialib:master"
         - name: "IMPORT_COMMAND"
           value: "./geo-import"
         imagePullPolicy: Always

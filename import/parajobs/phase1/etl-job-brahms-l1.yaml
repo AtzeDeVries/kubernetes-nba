@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: etl-brahms-l1
-        image: atzedevries/docker-nba-etl:V2.4
+        image: atzedevries/docker-nba-etl:V2.5-18-gc5ccef44
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
