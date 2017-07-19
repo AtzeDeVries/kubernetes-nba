@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: etl-enrich-specimens-mm
-        image: atzedevries/docker-nba-etl:V2.5-18-gc5ccef44
+        image: atzedevries/docker-nba-etl:V2.6-30-g365f14cb
         env:
         - name: "ES_DNS"
           value: "elasticsearch"

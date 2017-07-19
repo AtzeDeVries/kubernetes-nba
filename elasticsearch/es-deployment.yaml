@@ -23,6 +23,7 @@ spec:
           }
         ]'
     spec:
+      nodeSelector:
       containers:
       - name: elasticsearch
         securityContext:
@@ -30,7 +31,7 @@ spec:
           capabilities:
             add:
               - IPC_LOCK
-        image: atzedevries/elasticsearch-kubernetes
+        image: atzedevries/elasticsearch-kubernetes:5.1.2-xpack-mon
         imagePullPolicy: Always
         env:
         - name: NAMESPACE
@@ -46,7 +47,7 @@ spec:
         - name: NODE_MASTER
           value: "true"
         - name: NODE_INGEST
-          value: "false"
+          value: "true"
         - name: NODE_DATA
           value: "true"
         - name: HTTP_ENABLE

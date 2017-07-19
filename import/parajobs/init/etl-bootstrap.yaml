@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: etl-bootstrap
-        image: atzedevries/docker-nba-etl:V2.5-18-gc5ccef44
+        image: atzedevries/docker-nba-etl:V2.6-30-g365f14cb
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
@@ -25,7 +25,7 @@ spec:
         - name: "ENABLE_FILEBEAT"
           value: "TRUE"
         - name: "DEFAULT_SHARDS"
-          value: "6"
+          value: "12"
         - name: "NUM_REPLICAS"
           value: "0"
         - name: "REPOS"

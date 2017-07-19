@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: etl-nsr
-        image: atzedevries/docker-nba-etl:V2.5-18-gc5ccef44
+        image: atzedevries/docker-nba-etl:V2.6-30-g365f14cb
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
@@ -25,11 +25,11 @@ spec:
         - name: "ENABLE_FILEBEAT"
           value: "TRUE"
         - name: "DEFAULT_SHARDS"
-          value: "24"
+          value: "6"
         - name: "NUM_REPLICAS"
           value: "0"
         - name: "REPOS"
-          value: "nba-brondata-nsr:prisma-test,nba-brondata-medialib:master"
+          value: "nba-brondata-nsr:prisma-test,nba-brondata-medialib:prisma-test"
         - name: "IMPORT_COMMAND"
           value: "./nsr-import"
         imagePullPolicy: Always
