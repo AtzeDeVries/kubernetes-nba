@@ -12,11 +12,9 @@ data:
     elasticsearch.index.1.types=Taxon
     elasticsearch.index.2.name=multimedia
     elasticsearch.index.2.types=MultiMediaObject
-    elasticsearch.index.3.name=namegroup
-    elasticsearch.index.3.types=ScientificNameGroup
-    elasticsearch.index.4.name=geoareas
-    elasticsearch.index.4.types=GeoArea
-    elasticsearch.index.4.shards=1
+    elasticsearch.index.3.name=geoareas
+    elasticsearch.index.3.types=GeoArea
+    elasticsearch.index.3.shards=1
 kind: ConfigMap
 metadata:
   name: nba.properties
