@@ -12,9 +12,10 @@ spec:
       labels:
         app: etl-col
     spec:
+      restartPolicy: Never
       containers:
       - name: etl-col
-        image: atzedevries/docker-nba-etl:V2.6-30-g365f14cb
+        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
@@ -23,14 +24,20 @@ spec:
         - name: "AUTO_IMPORT"
           value: "TRUE"
         - name: "ENABLE_FILEBEAT"
-          value: "TRUE"
+          value: "FALSE"
         - name: "DEFAULT_SHARDS"
           value: "6"
         - name: "NUM_REPLICAS"
           value: "0"
         - name: "REPOS"
-          value: "nba-brondata-col:prisma-test,nba-brondata-medialib:prisma-test"
+          value: "nba-brondata-col:2017-07,nba-brondata-medialib:2017-07"
         - name: "IMPORT_COMMAND"
           value: "./col-import"
         imagePullPolicy: Always
-      restartPolicy: Never
+        volumeMounts:
+        - name: nfs-pvc
+          mountPath: "/payload/software/log"
+      volumes:
+      - name: nfs-pvc
+        persistentVolumeClaim:
+          claimName: nfslog

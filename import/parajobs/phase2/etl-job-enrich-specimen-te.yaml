@@ -12,9 +12,10 @@ spec:
       labels:
         app: etl-enrich-specimens-te
     spec:
+      restartPolicy: Never
       containers:
       - name: etl-enrich-specimens-te
-        image: atzedevries/docker-nba-etl:V2.6-30-g365f14cb
+        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
@@ -23,7 +24,7 @@ spec:
         - name: "AUTO_IMPORT"
           value: "TRUE"
         - name: "ENABLE_FILEBEAT"
-          value: "TRUE"
+          value: "FALSE"
         - name: "DEFAULT_SHARDS"
           value: "24"
         - name: "NUM_REPLICAS"
@@ -33,4 +34,10 @@ spec:
         - name: "IMPORT_COMMAND"
           value: "./enrich-specimens-te"
         imagePullPolicy: Always
-      restartPolicy: Never
+        volumeMounts:
+        - name: nfs-pvc
+          mountPath: "/payload/software/log"
+      volumes:
+      - name: nfs-pvc
+        persistentVolumeClaim:
+          claimName: nfslog
