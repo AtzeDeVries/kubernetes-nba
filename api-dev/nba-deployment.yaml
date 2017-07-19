@@ -1,0 +1,49 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-api-dev
+  labels:
+    app: nba-api-dev
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-api-dev
+      labels:
+        app: nba-api-dev
+    spec:
+      containers:
+      - name: nba-api-dev
+        image: atzedevries/docker-nba-api:V2.6-29-gf39cefd8
+        ports:
+        - containerPort: 8080
+        env:
+        - name: "JAVA_OPTS"
+          value: "-Xms1g -Xmx4g -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+        volumeMounts:
+        - mountPath: /etc/nba/nba.properties
+          name: config
+          subPath: nba.properties 
+        - mountPath: /etc/nba/log4j2.xml
+          name: log4j2xml
+          subPath: log4j2.xml        
+        - mountPath: /opt/jboss/wildfly/standalone/configuration/standalone.xml
+          name: standalonexml
+          subPath: standalone.xml
+        - mountPath: /etc/nba/
+          name: dwca
+      volumes:
+      - name: config
+        configMap:
+          name: nba.properties.dev
+      - name: standalonexml
+        configMap:
+          name: standalonexml
+      - name: log4j2xml
+        configMap:
+          name: log4j2xml
+      - name: dwca
+        gitRepo:
+          repository: "https://github.com/AtzeDeVries/dwca"
+          revision: "master"

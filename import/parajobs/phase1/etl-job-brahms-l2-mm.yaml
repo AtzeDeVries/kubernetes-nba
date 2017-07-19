@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-brahms-l2-mm
+  labels:
+    app: etl-brahms-l2-mm
+spec:
+  template:
+    metadata:
+      name: etl-brahms-l2-mm
+      labels:
+        app: etl-brahms-l2-mm
+    spec:
+      containers:
+      - name: etl-brahms-l2-mm
+        image: atzedevries/docker-nba-etl:V2.6-30-g365f14cb
+        env:
+        - name: "ES_DNS"
+          value: "elasticsearch"
+        - name: "TEST_GENERA"
+          value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
+        - name: "AUTO_IMPORT"
+          value: "TRUE"
+        - name: "ENABLE_FILEBEAT"
+          value: "TRUE"
+        - name: "DEFAULT_SHARDS"
+          value: "6"
+        - name: "NUM_REPLICAS"
+          value: "0"
+        - name: "DISABLE_TRUNCATE"
+          value: "TRUE"
+        - name: "REPOS"
+          value: "nba-brondata-brahms:prisma-test,nba-brondata-medialib:prisma-test"
+        - name: "IMPORT_COMMAND"
+          value: "./brahms-import multimedia L_2_05-07-2016_at_09-02-46.CSV"
+        imagePullPolicy: Always
+      restartPolicy: Never
