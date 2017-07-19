@@ -1,0 +1,38 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: minio-log
+  labels:
+    app: minio-log
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  minio-log
+    spec:
+      containers:
+      - name: minio-log
+        image: minio/minio
+        command: 
+          - minio 
+        args:
+            - server 
+            - /minio-data
+        imagePullPolicy: Always
+        env:
+        - name: MINIO_ACCESS_KEY
+          value: "changeme"
+        - name: MINIO_SECRET_KEY
+          value: "reallyreally"
+        ports:
+        - containerPort: 9000
+          name: s3
+          protocol: TCP
+        volumeMounts:
+        - name: storage
+          mountPath: /minio-data/etl-log
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: nfslog
