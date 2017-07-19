@@ -1,0 +1,44 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-purl
+  labels:
+    app: nba-purl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-purl
+      labels:
+        app: nba-purl
+    spec:
+      containers:
+      - name: nba-purl
+        image: atzedevries/docker-nba-purl:v2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: "JAVA_OPTS"
+          value: "-Xms1g -Xmx4g -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+        volumeMounts:
+        - mountPath: /etc/purl/purl.properties
+          name: purl.properties
+          subPath: purl.properties 
+        - mountPath: /etc/purl/log4j2.xml
+          name: log4j2.xml
+          subPath: log4j2.xml        
+        - mountPath: /opt/jboss/wildfly/standalone/configuration/standalone.xml
+          name: standalone.xml
+          subPath: standalone.xml
+      volumes:
+      - name: purl.properties
+        configMap:
+          name: purl-properties
+      - name: standalone.xml
+        configMap:
+          name: purl-standalone-xml
+      - name: log4j.2xml
+        configMap:
+          name: purl-log4j2-xml
+      

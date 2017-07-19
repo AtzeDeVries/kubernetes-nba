@@ -1,0 +1,11 @@
+---
+purlVersion: v1
+kind: Service
+metadata:
+  name: nba-purl
+spec:
+  type: LoadBalancer
+  selector:
+    app: nba-purl
+  ports:
+  - port: 8080

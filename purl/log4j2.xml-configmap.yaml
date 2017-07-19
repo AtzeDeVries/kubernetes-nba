@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+  log4j2.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration>
+            <Appenders>
+                    <Console name="Console">
+                            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
+                    </Console>
+            </Appenders>
+            <Loggers>
+                    <Logger name="nl.naturalis.nba" level="INFO" additivity="false">
+                            <AppenderRef ref="Console" />
+                    </Logger>
+                    <Root level="ERROR">
+                            <AppenderRef ref="Console" />
+                    </Root>
+            </Loggers>
+    </Configuration>
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: purl-log4j2-xml
