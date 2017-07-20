@@ -10,10 +10,10 @@ data:
             </Appenders>
             <Loggers>
                     <Logger name="nl.naturalis.nba" level="INFO" additivity="false">
-                            <AppenderRef ref="Console" />
+                            <AppenderRef ref="File" />
                     </Logger>
                     <Root level="ERROR">
-                            <AppenderRef ref="Console" />
+                            <AppenderRef ref="File" />
                     </Root>
             </Loggers>
     </Configuration>

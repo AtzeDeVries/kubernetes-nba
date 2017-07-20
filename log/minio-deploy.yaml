@@ -30,9 +30,19 @@ spec:
           name: s3
           protocol: TCP
         volumeMounts:
-        - name: storage
+        - name: nfslog
           mountPath: /minio-data/etl-log
+        - name: purllog
+          mountPath: /minio-data/purl-log
+        - name: apilog
+          mountPath: /minio-data/api-log
       volumes:
-      - name: storage
+      - name: nfslog
         persistentVolumeClaim:
           claimName: nfslog
+      - name: purllog
+        persistentVolumeClaim:
+          claimName: purllog     
+      - name: apilog
+        persistentVolumeClaim:
+          claimName: apilog

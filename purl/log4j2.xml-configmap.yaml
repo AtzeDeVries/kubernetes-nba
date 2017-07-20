@@ -10,14 +10,14 @@ data:
             </Appenders>
             <Loggers>
                     <Logger name="nl.naturalis.nba" level="INFO" additivity="false">
-                            <AppenderRef ref="Console" />
+                            <AppenderRef ref="File" />
                     </Logger>
                     <Root level="ERROR">
-                            <AppenderRef ref="Console" />
+                            <AppenderRef ref="File" />
                     </Root>
             </Loggers>
     </Configuration>
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: purl-log4j2-xml
+  name: purl.log4j2.xml

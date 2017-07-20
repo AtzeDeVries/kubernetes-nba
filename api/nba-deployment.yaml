@@ -33,6 +33,8 @@ spec:
           subPath: standalone.xml
         - mountPath: /etc/nba/
           name: dwca
+        - name: api-pvc
+          mountPath: /opt/jboss/wildfly/standalone/log
       volumes:
       - name: config
         configMap:
@@ -47,3 +49,6 @@ spec:
         gitRepo:
           repository: "https://github.com/AtzeDeVries/dwca"
           revision: "master"
+      - name: api-pvc
+        persistentVolumeClaim:
+          claimName: apilog 

@@ -43,4 +43,4 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: purl-properties
+  name: purl.properties

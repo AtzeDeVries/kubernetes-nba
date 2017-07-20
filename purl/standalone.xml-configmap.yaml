@@ -427,4 +427,4 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: purl-standalone-xml
+  name: purl.standalone.xml
