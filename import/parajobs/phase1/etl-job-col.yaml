@@ -30,7 +30,7 @@ spec:
         - name: "NUM_REPLICAS"
           value: "0"
         - name: "REPOS"
-          value: "nba-brondata-col:2017-07,nba-brondata-medialib:2017-07"
+          value: "nba-brondata-col:prisma-test,nba-brondata-medialib:2017-07"
         - name: "IMPORT_COMMAND"
           value: "./col-import"
         imagePullPolicy: Always

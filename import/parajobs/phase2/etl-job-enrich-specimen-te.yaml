@@ -25,6 +25,8 @@ spec:
           value: "TRUE"
         - name: "ENABLE_FILEBEAT"
           value: "FALSE"
+        - name: "LOG_LEVEL"
+          value: "DEBUG"
         - name: "DEFAULT_SHARDS"
           value: "24"
         - name: "NUM_REPLICAS"
@@ -32,7 +34,7 @@ spec:
         - name: "REPOS"
           value: "nba-brondata-medialib:master"
         - name: "IMPORT_COMMAND"
-          value: "./enrich-specimens-te"
+          value: "sed -i 's/read_batch_size=1000/read_batch_size=200/g' enrich-specimens-te &&  ./enrich-specimens-te"
         imagePullPolicy: Always
         volumeMounts:
         - name: nfs-pvc
