@@ -1,0 +1,21 @@
+apiVersion: v1
+data:
+  nba.properties: |
+    elasticsearch.cluster.name=nba-cluster
+    elasticsearch.transportaddress.host=elasticsearch
+    elasticsearch.transportaddress.port=9300
+    elasticsearch.index.default.shards=12
+    elasticsearch.index.default.replicas=0
+    elasticsearch.index.0.name=specimen
+    elasticsearch.index.0.types=Specimen
+    elasticsearch.index.1.name=taxon
+    elasticsearch.index.1.types=Taxon
+    elasticsearch.index.2.name=multimedia
+    elasticsearch.index.2.types=MultiMediaObject
+    elasticsearch.index.3.name=geoareas
+    elasticsearch.index.3.types=GeoArea
+    elasticsearch.index.3.shards=1
+kind: ConfigMap
+metadata:
+  name: etl.nba.properties
+

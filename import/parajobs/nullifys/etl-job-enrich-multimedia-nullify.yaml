@@ -1,0 +1,43 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-enrich-multimedia-nullify
+  labels:
+    app: etl-enrich-multimedia-nullify
+spec:
+  template:
+    metadata:
+      name: etl-enrich-multimedia-nullify
+      labels:
+        app: etl-enrich-multimedia-nullify
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: etl-enrich-multimedia-nullify
+        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
+        env:
+        - name: "ES_DNS"
+          value: "elasticsearch"
+        - name: "TEST_GENERA"
+          value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
+        - name: "AUTO_IMPORT"
+          value: "TRUE"
+        - name: "ENABLE_FILEBEAT"
+          value: "FALSE"
+        - name: "DEFAULT_SHARDS"
+          value: "24"
+        - name: "NUM_REPLICAS"
+          value: "0"
+        - name: "REPOS"
+          value: "nba-brondata-medialib:master"
+        - name: "IMPORT_COMMAND"
+          value: "./enrich-multimedia nullify"
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: nfs-pvc
+          mountPath: "/payload/software/log"
+      volumes:
+      - name: nfs-pvc
+        persistentVolumeClaim:
+          claimName: nfslog
