@@ -15,7 +15,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: etl-enrich-multimedia
-        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
+        image: atzedevries/docker-nba-etl:V2.7-13-ge6a9367a0
         env:
         - name: "ES_DNS"
           value: "elasticsearch"

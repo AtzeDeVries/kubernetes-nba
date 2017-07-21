@@ -15,29 +15,37 @@ spec:
       restartPolicy: Never
       containers:
       - name: etl-col
-        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
+        image: atzedevries/docker-nba-etl:V2.7
         env:
-        - name: "ES_DNS"
-          value: "elasticsearch"
+          #        - name: "ES_DNS"
+          #          value: "elasticsearch"
         - name: "TEST_GENERA"
           value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
         - name: "AUTO_IMPORT"
           value: "TRUE"
-        - name: "ENABLE_FILEBEAT"
-          value: "FALSE"
-        - name: "DEFAULT_SHARDS"
-          value: "6"
-        - name: "NUM_REPLICAS"
-          value: "0"
+          #        - name: "ENABLE_FILEBEAT"
+          #          value: "FALSE"
+          #        - name: "DEFAULT_SHARDS"
+          #          value: "6"
+          #        - name: "NUM_REPLICAS"
+          #          value: "0"
         - name: "REPOS"
           value: "nba-brondata-col:prisma-test,nba-brondata-medialib:2017-07"
+        - name: "PATCH_PROPERTIES"
+          value: "FALSE"
         - name: "IMPORT_COMMAND"
           value: "./col-import"
         imagePullPolicy: Always
         volumeMounts:
         - name: nfs-pvc
           mountPath: "/payload/software/log"
+        - name: etl-nba-properties
+          mountPath: /payload/software/conf/nba.properties
+          subPath: nba.properties
       volumes:
       - name: nfs-pvc
         persistentVolumeClaim:
           claimName: nfslog
+      - name: etl-nba-properties
+        configMap:
+          name: etl.nba.properties

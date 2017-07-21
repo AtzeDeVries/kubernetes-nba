@@ -15,7 +15,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: etl-enrich-specimens-te
-        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
+        image: atzedevries/docker-nba-etl:V2.7-13-ge6a9367a0
         env:
         - name: "ES_DNS"
           value: "elasticsearch"
@@ -34,7 +34,7 @@ spec:
         - name: "REPOS"
           value: "nba-brondata-medialib:master"
         - name: "IMPORT_COMMAND"
-          value: "sed -i 's/read_batch_size=1000/read_batch_size=200/g' enrich-specimens-te &&  ./enrich-specimens-te"
+          value: "sed -i 's/read_batch_size=1000/read_batch_size=5000/g' add-taxonomy-to-specimens &&  ./add-taxonomy-to-specimens"
         imagePullPolicy: Always
         volumeMounts:
         - name: nfs-pvc

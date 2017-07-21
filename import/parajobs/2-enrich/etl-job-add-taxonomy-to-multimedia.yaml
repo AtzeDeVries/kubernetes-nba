@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-add-taxonomy-to-multimedia
+  labels:
+    app: etl-add-taxonomy-to-multimedia
+spec:
+  template:
+    metadata:
+      name: etl-add-taxonomy-to-multimedia
+      labels:
+        app: etl-add-taxonomy-to-multimedia
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: etl-add-taxonomy-to-multimedia
+        image: atzedevries/docker-nba-etl:V2.7-13-ge6a9367a0
+        imagePullPolicy: Always
+        command: ["/bin/sh"]
+        args:
+        - "-c"
+        - > 
+          sed -i 's/read_batch_size=1000/read_batch_size=5000/g' add-taxonomy-to-multimedia 
+          && ./add-taxonomy-to-multimedia
+        volumeMounts:
+        - name: nfs-pvc
+          mountPath: "/payload/software/log"
+        - name: etl-nba-properties
+          mountPath: /payload/software/conf/nba.properties
+          subPath: nba.properties
+      volumes:
+      - name: nfs-pvc
+        persistentVolumeClaim:
+          claimName: nfslog
+      - name: etl-nba-properties
+        configMap:
+          name: etl.nba.properties

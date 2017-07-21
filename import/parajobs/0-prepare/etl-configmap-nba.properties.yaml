@@ -15,6 +15,16 @@ data:
     elasticsearch.index.3.name=geoareas
     elasticsearch.index.3.types=GeoArea
     elasticsearch.index.3.shards=1
+    install.dir=/payload/software
+    crs.data.dir=/payload/data/crs
+    col.data.dir=/payload/data/col
+    brahms.data.dir=/payload/data/brahms
+    nsr.data.dir=/payload/data/nsr
+    geo.data.dir=/payload/data/geo
+    ndff.data.dir=/payload/data/ndff
+    medialib.data.dir=/payload/data/medialib
+    col.year=2016
+    purl.baseurl=
 kind: ConfigMap
 metadata:
   name: etl.nba.properties
