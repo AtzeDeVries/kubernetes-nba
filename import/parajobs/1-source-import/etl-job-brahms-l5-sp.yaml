@@ -15,31 +15,47 @@ spec:
       restartPolicy: Never
       containers:
       - name: etl-brahms-l5-sp
-        image: atzedevries/docker-nba-etl:V2.6-69-g9d0757e4a
+        image: atzedevries/docker-nba-etl:V2.7
+        imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args:
+        - "-c"
+        - >
+          git clone https://github.com/naturalis/nba-brondata-brahms /payload/data/brahms -b $BRONDATA_TAG
+          && (cd /payload/data/brahms ; ./uncompress.sh)
+          && git clone https://github.com/naturalis/nba-brondata-medialib /payload/data/medialib -b $MEDIALIB_TAG
+          && (cd /payload/data/medialib ; ./uncompress.sh)
+          && sed -i "s/#test_genera.*/$TEST_GENERA/g" /payload/software/sh/include.sh 
+          && sed -i "s/truncate=true/truncate=false/g" /payload/software/sh/include.sh
+          && CSV_FILE=$(ls /payload/data/brahms/L_5* | awk -F '/' '{print $NF}')
+          && ./brahms-import specimens $CSV_FILE
+          && rm -fr /payload/data/brahms
+        #l5_13-07-2017_at_11-42-59-2.CSV
         env:
-        - name: "ES_DNS"
-          value: "elasticsearch"
+        - name: "LOG_LEVEL"
+          value: "INFO"
         - name: "TEST_GENERA"
           value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
-        - name: "AUTO_IMPORT"
-          value: "TRUE"
-        - name: "ENABLE_FILEBEAT"
-          value: "FALSE"
-        - name: "DEFAULT_SHARDS"
-          value: "6"
-        - name: "NUM_REPLICAS"
-          value: "0"
-        - name: "DISABLE_TRUNCATE"
-          value: "TRUE"
-        - name: "REPOS"
-          value: "nba-brondata-brahms:2017-07,nba-brondata-medialib:2017-07"
-        - name: "IMPORT_COMMAND"
-          value: "./brahms-import specimens L_5_11-07-2017_at_07-39-10-2.CSV"
-        imagePullPolicy: Always
+        - name: "BRONDATA_TAG"
+          value: "2017-07"
+        - name: "MEDIALIB_TAG"
+          value: "2017-07" 
         volumeMounts:
         - name: nfs-pvc
-          mountPath: "/payload/software/log"
+          mountPath: /payload/software/log
+        - name: etl-nba-properties
+          mountPath: /payload/software/conf/nba.properties
+          subPath: nba.properties
+        - name: etl-log4j2-xml
+          mountPath: /payload/software/conf/log4j2.xml
+          subPath: log4j2.xml
       volumes:
       - name: nfs-pvc
         persistentVolumeClaim:
           claimName: nfslog
+      - name: etl-nba-properties
+        configMap:
+          name: etl.nba.properties
+      - name: etl-log4j2-xml
+        configMap:
+          name: etl.log4j2.xml

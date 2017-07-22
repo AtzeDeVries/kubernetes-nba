@@ -4,7 +4,7 @@ data:
     elasticsearch.cluster.name=nba-cluster
     elasticsearch.transportaddress.host=elasticsearch
     elasticsearch.transportaddress.port=9300
-    elasticsearch.index.default.shards=12
+    elasticsearch.index.default.shards=16
     elasticsearch.index.default.replicas=0
     elasticsearch.index.0.name=specimen
     elasticsearch.index.0.types=Specimen

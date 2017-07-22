@@ -16,27 +16,15 @@ spec:
       containers:
       - name: etl-bootstrap
         image: atzedevries/docker-nba-etl:V2.7
-        env:
-        - name: "ES_DNS"
-          value: "elasticsearch"
-        - name: "TEST_GENERA"
-          value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
-        - name: "AUTO_IMPORT"
-          value: "TRUE"
-        - name: "ENABLE_FILEBEAT"
-          value: "FALSE"
-        - name: "DEFAULT_SHARDS"
-          value: "12"
-        - name: "NUM_REPLICAS"
-          value: "0"
-        - name: "REPOS"
-          value: "nba-brondata-medialib:master"
-        - name: "IMPORT_COMMAND"
-          value: "./bootstrap all"
         imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args:
+        - "-c"
+        - >
+          ./bootstrap all
         volumeMounts:
         - name: nfs-pvc
-          mountPath: "/payload/software/log"
+          mountPath: /payload/software/log
         - name: etl-nba-properties
           mountPath: /payload/software/conf/nba.properties
           subPath: nba.properties
@@ -44,6 +32,6 @@ spec:
       - name: nfs-pvc
         persistentVolumeClaim:
           claimName: nfslog
-      - name: etl-nba-properites
+      - name: etl-nba-properties
         configMap:
           name: etl.nba.properties

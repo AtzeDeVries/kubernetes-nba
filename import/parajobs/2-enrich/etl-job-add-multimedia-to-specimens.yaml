@@ -25,10 +25,13 @@ spec:
           && ./add-multimedia-to-specimens
         volumeMounts:
         - name: nfs-pvc
-          mountPath: "/payload/software/log"
+          mountPath: /payload/software/log
         - name: etl-nba-properties
           mountPath: /payload/software/conf/nba.properties
           subPath: nba.properties
+        - name: etl-log4j2-xml
+          mountPath: /payload/software/conf/log4j2.xml
+          subPath: log4j2.xml
       volumes:
       - name: nfs-pvc
         persistentVolumeClaim:
@@ -36,3 +39,6 @@ spec:
       - name: etl-nba-properties
         configMap:
           name: etl.nba.properties
+      - name: etl-log4j2-xml
+        configMap:
+          name: etl.log4j2.xml
