@@ -31,8 +31,8 @@ spec:
         - mountPath: /opt/jboss/wildfly/standalone/configuration/standalone.xml
           name: standalonexml
           subPath: standalone.xml
-        - mountPath: /etc/nba/
-          name: dwca
+        - mountPath: /etc/nba/dwca
+          name: dwca-config
         - name: api-pvc
           mountPath: /opt/jboss/wildfly/standalone/log
       volumes:
@@ -45,10 +45,9 @@ spec:
       - name: log4j2xml
         configMap:
           name: log4j2xml
-      - name: dwca
-        gitRepo:
-          repository: "https://github.com/AtzeDeVries/dwca"
-          revision: "master"
-      - name: api-pvc
+     - name: api-pvc
         persistentVolumeClaim:
-          claimName: apilog 
+          claimName: apilog
+      - name: dwca-config
+        persistentVolumeClaim:
+          name: dwca-config

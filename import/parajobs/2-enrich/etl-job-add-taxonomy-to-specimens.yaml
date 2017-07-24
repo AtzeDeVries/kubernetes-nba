@@ -21,7 +21,7 @@ spec:
         args:
         - "-c"
         - > 
-          sed -i 's/read_batch_size=1000/read_batch_size=5000/g' add-taxonomy-to-specimens 
+          sed -i 's/read_batch_size=1000/read_batch_size=500/g' add-taxonomy-to-specimens 
           && ./add-taxonomy-to-specimens
         volumeMounts:
         - name: nfs-pvc
