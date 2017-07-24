@@ -1,0 +1,23 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-forcemerge
+  labels:
+    app: etl-forcemerge
+spec:
+  template:
+    metadata:
+      name: etl-forcemerge
+      labels:
+        app: etl-forcemerge
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: etl-forcemerge
+        image: appropriate/curl
+        imagePullPolicy: Always
+        args:
+        - -XPOST
+        - 'http://elasticsearch:9200/specimen,taxon,multimedia/_forcemerge?max_num_segments=1'
+

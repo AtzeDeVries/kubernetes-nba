@@ -1,0 +1,33 @@
+apiVersion: v1
+data:
+  log4j2.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration>
+            <Appenders>
+                    <Console name="CONSOLE">
+                            <PatternLayout pattern="%d{HH:mm:ss.SSS}|%-5level|%c{10}: %msg%n" />
+                    </Console>
+                    <File name="FILE" fileName="${sys:nba.v2.etl.logfile}.log">
+                            <PatternLayout pattern="%d{HH:mm:ss.SSS}|%-5level|%c{10}: %msg%n" />
+                    </File>
+                    <File name="JSON" fileName="${sys:nba.v2.etl.logfile}.json">
+                            <JSONLayout complete="false" compact="true"
+                                    includeStacktrace="true" eventEol="true" />
+                    </File>
+            </Appenders>
+            <Loggers>
+                    <Logger name="nl.naturalis" level="${env:LOG_LEVEL}" additivity="false">
+                            <AppenderRef ref="FILE" />
+                            <!-- AppenderRef ref="JSON" / -->
+                            <!-- AppenderRef ref="CONSOLE" / -->
+                    </Logger>
+                    <Root level="ERROR">
+                            <AppenderRef ref="FILE" />
+                            <!-- AppenderRef ref="JSON" / -->
+                            <!-- AppenderRef ref="CONSOLE" / -->
+                    </Root>
+            </Loggers>
+    </Configuration>
+kind: ConfigMap
+metadata:
+  name: etl.log4j2.xml
