@@ -1,0 +1,39 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dwca-clone-job
+  labels:
+    app: dwca-clone-job
+spec:
+  template:
+    metadata:
+      name: dwca-clone-job
+      labels:
+        app: dwca-clone-job
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: dwca-clone-job
+        image: alpine
+        imagePullPolicy: Always
+        command: ["/bin/sh"]
+        args:
+        - -c
+        - >
+          apk add --no-cache git
+          && cd /dwca
+          && rm -fr /dwca/*
+          && rm -fr .git
+          && git clone https://github.com/naturalis/DWCAConfig . -b $DWCA_TAG
+        env:
+        - name: DWCA_TAG
+          value: master
+        volumeMounts:
+        - name: dwca-config
+          mountPath: /dwca
+      volumes:
+      - name: dwca-config
+        persistentVolumeClaim:
+          claimName: dwca-config
+

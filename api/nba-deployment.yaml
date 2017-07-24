@@ -45,9 +45,9 @@ spec:
       - name: log4j2xml
         configMap:
           name: log4j2xml
-     - name: api-pvc
+      - name: api-pvc
         persistentVolumeClaim:
           claimName: apilog
       - name: dwca-config
         persistentVolumeClaim:
-          name: dwca-config
+          claimName: dwca-config
