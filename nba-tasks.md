@@ -8,15 +8,15 @@ kubectl edit deployment nba-api
 #### Update Elasticsearch deployment
 ```shell
 kubectl delete deployment elasticsearch
-vim elasticsearch/es-deployment
-kubectl create -f elasticsearch/es-deployment
+vim elasticsearch/es-deployment.yaml
+kubectl create -f elasticsearch/es-deployment.yaml
 ```
 
 #### Change (log) setting NBA
 ```shell
 kubectl edit configmap <what you want to change>
 kubectl delete deployment nba-api
-kubectl create -f api/nba-deployment
+kubectl create -f api/nba-deployment.yaml
 ```
 
 #### Update dwca config NBA
