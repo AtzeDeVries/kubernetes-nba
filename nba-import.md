@@ -99,9 +99,16 @@ In kibana you can check the status of the cleanup with `GET _cat/thread_pool` an
 check if there are any `force_merge` processes running. You can also check
 `GET _cat/indices?v` and check for the NBA indices if the number of deleted documents is 0. 
 
-#### Post kibana settings
-First check in minio if there is enough space available for a snapshot, otherwise delete
-an older snapshot. Check in kibana if the snapshot repository is available and then take a snapshot. 
+#### Post kibana jobs
+Check in kibana if the snapshot repository is available. 
+Then check in minio if there is enough space available for a snapshot, otherwise delete
+a older snap.
+You can check the current available snaphosts via
+`GET _snapshot/nba-import-snapshots/_all` and delete one via
+`DELETE _snapshot/nba-import-snapshots/<snapshot name>`
+
+Then you can thake a snapshot.
+
 ```
 PUT _snapshot/nba-import-snapshots/<your snapshot name>
 {
