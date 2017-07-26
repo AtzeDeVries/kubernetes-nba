@@ -95,6 +95,41 @@ This will add extra data to all documents. This step takes about 3 hours.
 Wait until the enrichtments are done
 `kubectl create -f 3-postjobs`. This job will cleanup all deleted documents 
 in the indices. This saves space and enchanses query performance. 
+In kibana you can check the status of the cleanup with `GET _cat/thread_pool` and
+check if there are any `force_merge` processes running. You can also check
+`GET _cat/indices?v` and check for the NBA indices if the number of deleted documents is 0. 
+
+#### Post kibana settings
+First check in minio if there is enough space available for a snapshot, otherwise delete
+an older snapshot. Check in kibana if the snapshot repository is available and then take a snapshot. 
+```
+PUT _snapshot/nba-import-snapshots/<your snapshot name>
+{
+  "indices": "specimen,taxon,multimedia,geoareas"
+}
+```
+Check the progress of the snapshot with
+```
+GET _snapshot/nba-import-snapshots/<your snapshot name>/_status
+```
+
+When the snapshot state is success you can up the number of replica's. First check the available
+space via `GET _cat/allocation?v` and calculate the number of replica's you can take.
+For geo it is easy
+```
+PUT /geoareas/_settings
+{
+  "number_of_replicas": < number of es nodes -1 >
+}
+```
+For `specimen,taxon,multimedia`
+```
+PUT /specimen,taxon,multimedia/_settings
+{
+  "number_of_replicas": 2 #or 1 depending of free space
+}
+```
+Check status of replica's via `GET _cat/indices` and `GET _cat/shards`
 
 #### Undo jobs
 In the folder `99-nullify-jobs` there are some jobs to undo a certain import. 
