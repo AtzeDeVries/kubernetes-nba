@@ -46,7 +46,7 @@ git clone https://github.com/AtzeDeVries/docker-nba-purl
 ```
 Add new `purl.war` and then push to GH. Travis will build a new docker image.
 
-#### Source datasets 
+#### Updating source datasets 
 There are many sources of data in the NBA. Here is a github list with some extra info
 Allmost all source data repositories have two scrips, and a 3 support files 
 `compress.sh, uncompress.sh, filelist, .gitignore, README.md`. Compressing works only 
@@ -73,7 +73,7 @@ This is a supporting dataset, run in on the medialib-dataserver.
 ```shell
 docker run --rm -it --env-file env.file -v $(pwd)/out:/payload  atzedevries/docker-nba-ml-mimetype
 ```
-And commit it to this repository.
+And commit it to this repository. Done by Infra
 
 ##### [Bijzondere Collectie](https://github.com/naturalis/nba-brondata-bijzcol)
 This is a supporting dataset, should be there before a import. Data is injected in etl docker image. 
