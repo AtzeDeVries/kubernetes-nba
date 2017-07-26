@@ -6,7 +6,7 @@ a snapshot or run a import. First we will discuss the snapshot method, then
 the import method.
 The current import requires about 500GB of storage. 
 
-### Snapshot
+## Snapshot
 Requirements
 * A snapshot (S3 perfered) repository with a snapshot
 * Access to kibana or http access of Elasticsearch
@@ -65,7 +65,7 @@ PUT /specmen,multimedia,taxon/_settings
 }
 ```
 
-### Import
+## Import
 
 To a import go to the folder `import/parajobs`. The import has 4 phases. First check
 if there are any jobs this in k8s. 
