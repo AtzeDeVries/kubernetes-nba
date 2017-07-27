@@ -21,13 +21,13 @@ kubectl create -f api/nba-deployment.yaml
 
 #### Update dwca config API
 ```shell
-kubectl delete -f nba/dwca-clone-job.yaml
-kubectl create -f nba/dwca-clone-job.yaml
+kubectl delete -f api/dwca-clone-job.yaml
+kubectl create -f api/dwca-clone-job.yaml
 ```
 
 #### Build a new version of API / ETL
 ```shell
-git clone https://github.com/AtzeDeVries/travics-nba-(api/etl)-docker
+git clone https://github.com/AtzeDeVries/travisci-nba-(api/etl)-docker
 git branch
 ```
 Check if the branch (from github.com/naturalis/naturalis_data_api) is 
