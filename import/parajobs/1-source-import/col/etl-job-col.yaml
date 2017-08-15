@@ -15,7 +15,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: etl-col
-        image: atzedevries/docker-nba-etl:V2.7
+        image: atzedevries/docker-nba-etl:V2.9
         imagePullPolicy: Always
         command: ["/bin/bash"]
         args:

@@ -15,7 +15,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: etl-brahms-mm
-        image: atzedevries/docker-nba-etl:V2.7
+        image: atzedevries/docker-nba-etl:V2.9
         imagePullPolicy: Always
         command: ["/bin/bash"]
         args:
@@ -37,7 +37,7 @@ spec:
         - name: "TEST_GENERA"
           value: "#test_genera=malus,parus,larus,bombus,rhododendron,felix,tulipa,rosa,canis,passer,trientalis"
         - name: "BRONDATA_TAG"
-          value: "2017-07"
+          value: "2017-08"
         - name: "MEDIALIB_TAG"
           value: "2017-07" 
         volumeMounts:
