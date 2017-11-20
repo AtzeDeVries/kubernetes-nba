@@ -26,7 +26,6 @@ kind: ConfigMap
 metadata:
   creationTimestamp: 2017-06-26T09:52:23Z
   name: log4j2xml
-  namespace: default
   resourceVersion: "302674"
   selfLink: /api/v1/namespaces/default/configmaps/log4j2xml
   uid: 275ed676-5a55-11e7-981c-fa163e24f771

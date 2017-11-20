@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-entrypoint
+  labels:
+    app: nba-entrypoint
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-entrypoint
+      labels:
+        app: nba-entrypoint
+    spec:
+      containers:
+      - name: nba-entrypoint
+        image: naturalis/nba-entrypoint:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+

@@ -41,7 +41,7 @@ spec:
         - name: "CLUSTER_NAME"
           value: "nba-cluster"
         - name: "NUMBER_OF_MASTERS"
-          value: "2"
+          value: "5"
         - name: "ES_JAVA_OPTS"
           value: "-Xms16g -Xmx16g"
         - name: NODE_MASTER

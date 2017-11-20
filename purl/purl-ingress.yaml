@@ -1,0 +1,16 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: data.biodiversitydata.nl
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: data.biodiversitydata.nl
+    http:
+      paths:
+      - backend:
+          serviceName: nba-purl
+          servicePort: 8080
+

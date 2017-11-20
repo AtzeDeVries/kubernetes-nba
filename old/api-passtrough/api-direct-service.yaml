@@ -1,0 +1,11 @@
+---
+api-directVersion: v1
+kind: Service
+metadata:
+  name: nba-api-direct
+spec:
+  type: LoadBalancer
+  selector:
+    app: nba-api-direct
+  ports:
+  - port: 5000

@@ -1,0 +1,65 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api.biodiversitydata.nl
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: api.biodiversitydata.nl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nba-entrypoint
+          servicePort: 80
+      - path: /v0
+        backend:
+          serviceName: api-v0
+          servicePort: 80
+      - path: /v2
+        backend:
+          serviceName: nba-api
+          servicePort: 8080
+      - path: /scratchpad
+        backend:
+          serviceName: nba-scratchpad
+          servicePort: 80
+
+  - host: data.biodiversitydata.nl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nba-purl
+          servicePort: 8080
+
+  - host: docs.biodiversitydata.nl
+    http:
+      paths:
+      - path: /en/latest
+        backend:
+          serviceName: nba-docs
+          servicePort: 80
+      - path: /
+        backend:
+          serviceName: nba-docs-redirect
+          servicePort: 80
+      - path: /endpoints-reference
+        backend:
+          serviceName: nba-docs-swagger
+          servicePort: 80
+
+  - host: www.biodiversitydata.nl
+    http:
+      paths:
+      - path: /en/latest
+        backend:
+          serviceName: nba-docs
+          servicePort: 80
+      - path: /
+        backend:
+          serviceName: nba-docs-redirect
+          servicePort: 80
+

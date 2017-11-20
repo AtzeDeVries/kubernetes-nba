@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-v0
+spec:
+  selector:
+    app: api-v0
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+  type: ExternalName
+  externalName: 145.136.241.37

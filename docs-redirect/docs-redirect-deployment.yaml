@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-docs-redirect
+  labels:
+    app: nba-docs-redirect
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-docs-redirect
+      labels:
+        app: nba-docs-redirect
+    spec:
+      containers:
+      - name: nba-docs-redirect
+        image: naturalis/docs-redirect:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+

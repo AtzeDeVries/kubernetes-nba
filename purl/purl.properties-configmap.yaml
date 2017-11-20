@@ -10,10 +10,11 @@ data:
     # "nl.naturalis.purl.conf.dir". With Wildfly
     # system properties are best set in standalone.xml
 
-    nba.baseurl=http://nba-api:8080/v2
-    bioportal.baseurl=http://bioportal.naturalis.nl
-
-    noredirect=true
+    nba.baseurl=http://api.biodiversitydata.nl/v2
+    #nba.baseurl=http://nba-api:8080/v2
+    #bioportal.baseurl=http://bioportal.naturalis.nl
+    bioportal.specimen.url=http://bioportal.naturalis.nl/specimen/${unitID}
+    noredirect=false
 
     # Media type served when no Accept headers present
     specimen.purl.accept.default=text/html

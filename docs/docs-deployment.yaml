@@ -1,0 +1,34 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-docs
+  labels:
+    app: nba-docs
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-docs
+      labels:
+        app: nba-docs
+    spec:
+      containers:
+      - name: nba-docs
+        image: naturalis/nba-docs:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: "NBADOCS_HOST"
+          value: "docs.biodiversitydata.nl"
+        - name: "NBADOCS_PORT"
+          value: "80"
+        - name: "NBADOCS_PATH"
+          value: "en/latest"
+        - name: "SWAGGER_UI_URL"
+          value: "http://docs.biodiversitydata.nl/endpoints-reference"
+        - name: "NBA_BASE_URL"
+          value: "http://api.biodiversitydata.nl"
+        - name: "SCRATCHPAD_URL"
+          value: "http://api.biodiversitydata.nl/scratchpad"

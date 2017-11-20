@@ -15,7 +15,14 @@ spec:
     spec:
       containers:
       - name: nba-api
-        image: atzedevries/docker-nba-api:V2.7
+        image: naturalis/nba-api:V2.11-01b2fa7
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /opt/jboss/wildfly/standalone/deployments/nba.war.deployed
+          initialDelaySeconds: 5
+          periodSeconds: 5
         ports:
         - containerPort: 8080
         env:
@@ -24,10 +31,10 @@ spec:
         volumeMounts:
         - mountPath: /etc/nba/nba.properties
           name: config
-          subPath: nba.properties 
+          subPath: nba.properties
         - mountPath: /etc/nba/log4j2.xml
           name: log4j2xml
-          subPath: log4j2.xml        
+          subPath: log4j2.xml
         - mountPath: /opt/jboss/wildfly/standalone/configuration/standalone.xml
           name: standalonexml
           subPath: standalone.xml

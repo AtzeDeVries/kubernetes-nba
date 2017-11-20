@@ -2,14 +2,7 @@
 
 #### Update API version
 ```shell
-kubectl edit deployment nba-api
-```
-
-#### Update Elasticsearch deployment
-```shell
-kubectl delete deployment elasticsearch
-vim elasticsearch/es-deployment.yaml
-kubectl create -f elasticsearch/es-deployment.yaml
+kubectl set image deployment/nba-api nba-api=<new image name> (for ex naturalis/nba-api:V2.11.3-e39fae)
 ```
 
 #### Change (log) setting API
@@ -25,27 +18,6 @@ kubectl delete -f api/dwca-clone-job.yaml
 kubectl create -f api/dwca-clone-job.yaml
 ```
 
-#### Build a new version of API / ETL
-```shell
-git clone https://github.com/AtzeDeVries/travisci-nba-(api/etl)-docker
-git branch
-```
-Check if the branch (from github.com/naturalis/naturalis_data_api) is 
-available, if not; create and push.
-Any change in this repo will trigger a build. If there just need to be a 
-new build, go to travis-ci.org and find the repo with branch and click
-the rebuild button. 
-Check on https://hub.docker.com/r/atzedevries/ if there is a new build
-available. 
-Model of the docker images are [API](https://github.com/AtzeDeVries/docker-nba-api)
-[ETL](https://github.com/AtzeDeVries/docker-nba-etl)
-
-#### Build a new version of PURL
-```shell
-git clone https://github.com/AtzeDeVries/docker-nba-purl
-```
-Add new `purl.war` and then push to GH. Travis will build a new docker image.
-
 #### Updating source datasets 
 There are many sources of data in the NBA. Here is a github list with some extra info
 Allmost all source data repositories have two scrips, and a 3 support files 
@@ -56,7 +28,8 @@ on linux.
 The dump is a manual (and long process). Done by IM. 
 
 ##### [CRS](https://github.com/naturalis/nba-brondata-crs)
-The dump is a semi-manual (and long process). Done by IM. 
+CRS is moved to drive, for speed improvements. A better how to for this is
+needed.
 
 ##### [COL](https://github.com/naturalis/nba-brondata-col)
 Only dumps of the static sets. Done by SD. When importing check in 

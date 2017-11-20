@@ -1,0 +1,26 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: jobernetes-etl
+  labels:
+    app: jobernetes-etl
+spec:
+  template:
+    metadata:
+      name: jobernetes-etl
+      labels:
+        app: jobernetes-etl
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: jobernetes-etl
+        image: atzedevries/jobernetes:v0.0.5
+        command: ["/bin/sh"]
+        args:
+          - "-c"
+          - >
+            apk add --no-cache git
+            && git clone https://github.com/atzedevries/jobernetes-etl
+            && cp jobernetes-etl/jobmodel/jobermodel.yaml ./
+            && python jobernetes.py

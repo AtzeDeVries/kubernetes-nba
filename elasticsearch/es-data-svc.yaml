@@ -1,15 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch
+  name: elasticsearch-data
   labels:
     component: elasticsearch
-    role: client
+    role: data
 spec:
-  selector:
-    component: elasticsearch
-    role: client
   ports:
   - name: http
     port: 9200
     protocol: TCP
+  - port: 9300
+    name: transport
+  selector:
+    component: elasticsearch
+    role: data

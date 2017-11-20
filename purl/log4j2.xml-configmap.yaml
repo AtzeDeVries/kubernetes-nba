@@ -3,21 +3,25 @@ data:
   log4j2.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <Configuration>
-            <Appenders>
-                    <Console name="Console">
-                            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n" />
-                    </Console>
-            </Appenders>
-            <Loggers>
-                    <Logger name="nl.naturalis.nba" level="INFO" additivity="false">
-                            <AppenderRef ref="File" />
-                    </Logger>
-                    <Root level="ERROR">
-                            <AppenderRef ref="File" />
-                    </Root>
-            </Loggers>
+    	<Appenders>
+    		<Console name="CONSOLE">
+    			<PatternLayout pattern="%d{HH:mm:ss.SSS}|%-5level|%c{10}: %msg%n" />
+    		</Console>
+    		<File name="FILE" fileName="/opt/jboss/wildfly/standalone/log/purl.log">
+    			<PatternLayout pattern="%d{HH:mm:ss.SSS}|%-5level|%c{10}: %msg%n" />
+    		</File>
+    	</Appenders>
+    	<Loggers>
+    		<Logger name="nl.naturalis" level="INFO" additivity="false">
+    			<AppenderRef ref="FILE" />
+    			<AppenderRef ref="CONSOLE" />
+    		</Logger>
+    		<Root level="ERROR">
+    			<AppenderRef ref="FILE" />
+    			<AppenderRef ref="CONSOLE" />
+    		</Root>
+    	</Loggers>
     </Configuration>
 kind: ConfigMap
 metadata:
-  creationTimestamp: null
   name: purl.log4j2.xml

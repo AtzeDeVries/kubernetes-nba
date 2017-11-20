@@ -15,12 +15,20 @@ spec:
     spec:
       containers:
       - name: nba-purl
-        image: atzedevries/docker-nba-purl:v2
+        image: naturalis/nba-purl:v2-20171116
+        imagePullPolicy: Always
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /opt/jboss/wildfly/standalone/deployments/purl.war.deployed
+          initialDelaySeconds: 5
+          periodSeconds: 5
         ports:
         - containerPort: 8080
         env:
         - name: "JAVA_OPTS"
-          value: "-Xms1g -Xmx4g -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+          value: "-Xms512m -Xmx1g -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
         volumeMounts:
         - name: purl-pvc
           mountPath: /opt/jboss/wildfly/standalone/log

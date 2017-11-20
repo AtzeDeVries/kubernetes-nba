@@ -1,0 +1,31 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-storageunits
+  labels:
+    app: etl-storageunits
+spec:
+  template:
+    metadata:
+      name: etl-storageunits
+      labels:
+        app: etl-storageunits
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: etl-storageunits
+        image: naturalis/nba-storageunits-etl:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args:
+        - "-c"
+        - >
+          git clone https://github.com/naturalis/nba-brondata-storageunits -b $BRONDATA_TAG
+          && sh ./push_documents.sh nba-brondata-storageunits drop_index
+          && rm -fr nba-brondata-storageunits
+        env:
+        - name: "ES_SERVER"
+          value: "http://elasticsearch:9200"
+        - name: "BRONDATA_TAG"
+          value: "master"

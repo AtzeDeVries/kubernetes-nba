@@ -362,7 +362,7 @@ data:
                 <buffer-cache name="default"/>
                 <server name="default-server">
                     <http-listener name="default" socket-binding="http" redirect-socket="https"/>
-                    <host name="default-host" alias="api.biodiversitydata.nl">
+                    <host name="default-host" alias="localhost">
                         <location name="/" handler="welcome-content"/>
                         <filter-ref name="server-header"/>
                         <filter-ref name="x-powered-by-header"/>
@@ -370,6 +370,7 @@ data:
                         <filter-ref name="Access-Control-Allow-Methods"/>
                         <filter-ref name="Access-Control-Allow-Headers"/>
                         <filter-ref name="Access-Control-Max-Age"/>
+                      <!--  <filter-ref name="limit-connections"/> -->
                     </host>
                 </server>
                 <servlet-container name="default">
@@ -382,11 +383,12 @@ data:
                 <filters>
                     <response-header name="server-header" header-name="Server" header-value="WildFly/10"/>
                     <response-header name="x-powered-by-header" header-name="X-Powered-By" header-value="Undertow/1"/>
-                    <response-header name="Access-Control-Allow-Origin" header-name="Access-Control-Allow-Origin" header-value="http://docs.biodiversitydata.nl"/>
+                    <response-header name="Access-Control-Allow-Origin" header-name="Access-Control-Allow-Origin" header-value="null"/>
                     <response-header name="Access-Control-Allow-Methods" header-name="Access-Control-Allow-Methods" header-value="GET, POST"/>
                     <response-header name="Access-Control-Allow-Headers" header-name="Access-Control-Allow-Headers" header-value="accept, content-type, x-requested
     -with"/>
                     <response-header name="Access-Control-Max-Age" header-name="Access-Control-Max-Age" header-value="1"/>
+                  <!--  <request-limit name="limit-connections" max-concurrent-requests="10000" queue-size="100"/> -->
                 </filters>
             </subsystem>
             <subsystem xmlns="urn:jboss:domain:webservices:2.0">
@@ -426,5 +428,4 @@ data:
     </server>
 kind: ConfigMap
 metadata:
-  creationTimestamp: 2017-06-26T09:49:44Z
-  name: standalonexml
+  name: standalonedevxml

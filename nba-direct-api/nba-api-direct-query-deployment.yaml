@@ -1,0 +1,26 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-direct-query-api
+  labels:
+    app: nba-direct-query-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-direct-query-api
+      labels:
+        app: nba-direct-query-api
+    spec:
+      containers:
+      - name: nba-direct-query-api
+        image: naturalis/nba-direct-query-api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: "ES_ADDRESS"
+          value: "elasticsearch-data"
+        - name: "ES_PORT"
+          value: "9200"

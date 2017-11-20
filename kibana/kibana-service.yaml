@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: kibana
 spec:
-  type: LoadBalancer
+  type: ClusterIP 
   selector:
     app: kibana
   ports:

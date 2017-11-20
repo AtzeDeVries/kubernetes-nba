@@ -13,12 +13,12 @@ spec:
     spec:
       containers:
       - name: minio-log
-        image: minio/minio
-        command: 
-          - minio 
+        image: minio/minio:RELEASE.2017-06-13T19-01-01Z
+        command:
+        - minio
         args:
-            - server 
-            - /minio-data
+        - server
+        - /storage
         imagePullPolicy: Always
         env:
         - name: MINIO_ACCESS_KEY
@@ -31,18 +31,9 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: nfslog
-          mountPath: /minio-data/etl-log
-        - name: purllog
-          mountPath: /minio-data/purl-log
-        - name: apilog
-          mountPath: /minio-data/api-log
+          mountPath: /storage/etl-log
       volumes:
       - name: nfslog
         persistentVolumeClaim:
           claimName: nfslog
-      - name: purllog
-        persistentVolumeClaim:
-          claimName: purllog     
-      - name: apilog
-        persistentVolumeClaim:
-          claimName: apilog
+

@@ -1,0 +1,37 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nba-scratchpad
+  labels:
+    app: nba-scratchpad
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nba-scratchpad
+      labels:
+        app: nba-scratchpad
+    spec:
+      hostAliases:
+      - ip: "145.136.241.188"
+        hostnames:
+        - "api.biodiversitydata.nl"
+        - "data.biodiversitydata.nl"
+      containers:
+      - name: nba-scratchpad
+        image: naturalis/nba_scratchpad:path-fix
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: "NBA_ADDRESS"
+          value: "nba-api"
+        - name: "NBA_PORT"
+          value: "8080"
+        - name: "NBA_TIMEOUT"
+          value: "10"
+        - name: "PUBLIC_NBA_FULL_ADDRESS"
+          value: "api.biodiversitydata.nl"
+        - name: "LISTENER_BASE_PATH"
+          value: "/scratchpad"

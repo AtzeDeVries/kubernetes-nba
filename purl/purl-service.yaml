@@ -1,10 +1,10 @@
 ---
-purlVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: nba-purl
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: nba-purl
   ports:
