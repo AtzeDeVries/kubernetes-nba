@@ -30,8 +30,6 @@ spec:
         - name: "JAVA_OPTS"
           value: "-Xms512m -Xmx1g -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
         volumeMounts:
-        - name: purl-pvc
-          mountPath: /opt/jboss/wildfly/standalone/log
         - mountPath: /etc/purl/purl.properties
           name: purl-properties
           subPath: purl.properties 
@@ -51,6 +49,3 @@ spec:
       - name: log4j2-xml
         configMap:
           name: purl.log4j2.xml
-      - name: purl-pvc
-        persistentVolumeClaim:
-          claimName: purllog

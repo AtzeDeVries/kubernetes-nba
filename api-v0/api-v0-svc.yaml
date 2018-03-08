@@ -10,4 +10,5 @@ spec:
     protocol: TCP
     port: 80
   type: ExternalName
-  externalName: 145.136.241.37
+  #externalName: 145.136.241.37
+  externalName: 145.136.241.46

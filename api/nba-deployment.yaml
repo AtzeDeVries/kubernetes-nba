@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nba-api
-        image: naturalis/nba-api:V2.11-01b2fa7
+        image: naturalis/nba-api:V2.11.4-ae1b39b
         readinessProbe:
           exec:
             command:
@@ -40,8 +40,6 @@ spec:
           subPath: standalone.xml
         - mountPath: /etc/nba/dwca
           name: dwca-config
-        - name: api-pvc
-          mountPath: /opt/jboss/wildfly/standalone/log
       volumes:
       - name: config
         configMap:
@@ -52,9 +50,6 @@ spec:
       - name: log4j2xml
         configMap:
           name: log4j2xml
-      - name: api-pvc
-        persistentVolumeClaim:
-          claimName: apilog
       - name: dwca-config
         persistentVolumeClaim:
           claimName: dwca-config

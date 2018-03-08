@@ -1,12 +1,12 @@
-apiVersion: apps/v1beta1
-kind: StatefulSet
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: es-data
   labels:
     component: elasticsearch
     role: data
 spec:
-  serviceName: elasticsearch-data
   replicas: 8
   template:
     metadata:
@@ -63,13 +63,10 @@ spec:
         volumeMounts:
         - name: storage
           mountPath: /data
-  volumeClaimTemplates:
-  - metadata:
-      name: storage
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      storageClassName: local-storage
-      resources:
-        requests:
-          storage: 170Gi
+      volumes:
+        - name: storage
+          hostPath:
+          # directory location on host
+            path: /es-data
+          # this field is optional
+            type: Directory
